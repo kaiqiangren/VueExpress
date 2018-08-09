@@ -1,7 +1,7 @@
 {
-  "name": "echart",
+  "name": "express",
   "version": "1.0.0",
-  "description": "\"vue项目图表练习\"",
+  "description": "VueExpress全栈项目",
   "author": "kaiqiangren <30898441+kaiqiangren@users.noreply.github.com>",
   "private": true,
   "scripts": {
@@ -87,5 +87,16 @@
   "directories": {
     "test": "test"
   },
-  "license": "ISC"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiqiangren/VueExpress.git"
+  },
+  "keywords": [
+    "\"VueExpress\""
+  ],
+  "bugs": {
+    "url": "https://github.com/kaiqiangren/VueExpress/issues"
+  },
+  "homepage": "https://github.com/kaiqiangren/VueExpress#readme"
 }
