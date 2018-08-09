@@ -2,7 +2,7 @@
 
 > \"VueExpress全栈项目\"
 
-## Build Setup
+## Build Setup 构建步骤
 
 ``` bash
 # install dependencies  安装依赖
