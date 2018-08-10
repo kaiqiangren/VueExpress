@@ -95,7 +95,6 @@ router.use('/test/query', function (req, res) {
   let end = pageNumber*pageSize;
   let sql = "SELECT * FROM user_info ORDER BY score DESC LIMIT "+start+","+end;
   let countSql = "SELECT COUNT(id) FROM user_info";
-  let total;
   const promise = new Promise(function(resolve, reject) {
     db.query(countSql,function (err, rows, fields) {
       resolve(rows);
