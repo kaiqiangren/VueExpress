@@ -14,13 +14,14 @@
       </el-header>
       <el-main>
         <el-table
+          v-loading="loading"
           :data="tableData"
           style="width: 100%"
           :default-sort = "{prop: 'score', order: 'descending'}"
         >
           <el-table-column
             label="序号"
-            type="index">
+            prop="index">
           </el-table-column>
           <el-table-column
             label="日期"
@@ -54,6 +55,18 @@
             </template>
           </el-table-column>
         </el-table>
+        <div style="text-align: center;">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageNumber"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="totalCount">
+          </el-pagination>
+        </div>
+
         <el-button type="primary" @click="addView" size="small" circle><i
           class="el-icon-circle-plus-outline"></i>
         </el-button>
@@ -113,14 +126,43 @@
           score: [
             {required: true, message: '请输入进球数', trigger: 'blur'},
           ],
-        }
+        },
+        pageNumber:1,
+        pageSize:5,
+        totalCount:10,
+        loading:false
       }
     },
     methods: {
+      handleSizeChange(pageSize) {
+        this.pageSize=pageSize;
+        this.queryData();
+      },
+      handleCurrentChange(pageNumber) {
+        this.pageNumber =pageNumber;
+        this.queryData();
+      },
       /*查询数据*/
       queryData: function () {
-        this.$ajax.post('/test/query').then(data => {
-          this.tableData = data.data.info;
+        this.loading=true;
+        this.$ajax.post('/test/query',{
+            pageSize:this.pageSize,
+            pageNumber:this.pageNumber
+        }).then(data => {
+          this.loading=false;
+          let resData= data.data.info;
+          let tableData=[];
+          resData.map((item,index)=>{
+              let obj =  {};
+              obj["index"]=(this.pageNumber-1)*this.pageSize+index+1;
+              obj["date"]=item.date;
+              obj["name"]=item.name;
+              obj["country"]=item.country;
+              obj["score"]=item.score;
+              tableData.push(obj)
+          })
+          this.tableData = tableData;
+          this.totalCount =data.data.total;
         })
       },
       /*新增回显*/
@@ -194,21 +236,21 @@
     mounted: function () {
       this.queryData();
 
-      var ws = new WebSocket("ws://10.18.160.20:3000");
-
-      ws.onopen = function(evt) {
-        console.log("Connection open ...");
-        ws.send("Hello WebSockets!");
-      };
-
-      ws.onmessage = function(evt) {
-        console.log( "Received Message: " + evt.data);
-        ws.close();
-      };
-
-      ws.onclose = function(evt) {
-        console.log("Connection closed.");
-      };
+//      var ws = new WebSocket("ws://10.18.160.20:3000");
+//
+//      ws.onopen = function(evt) {
+//        console.log("Connection open ...");
+//        ws.send("Hello WebSockets!");
+//      };
+//
+//      ws.onmessage = function(evt) {
+//        console.log( "Received Message: " + evt.data);
+//        ws.close();
+//      };
+//
+//      ws.onclose = function(evt) {
+//        console.log("Connection closed.");
+//      };
     }
   }
 </script>
