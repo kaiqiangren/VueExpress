@@ -17,7 +17,7 @@
           v-loading="loading"
           :data="tableData"
           style="width: 100%"
-          :default-sort = "{prop: 'score', order: 'descending'}"
+          :default-sort="{prop: 'score', order: 'descending'}"
         >
           <el-table-column
             label="序号"
@@ -109,6 +109,7 @@
         dialogVisible: false,
         dialogTitle: '操作',
         btnDisplay: 'add',
+        /*输入框集合*/
         ruleForm: {
           name: '',
           country: '',
@@ -116,6 +117,7 @@
           date: '',
           id: 0
         },
+        /*验证规则*/
         rules: {
           name: [
             {required: true, message: '请输入球员名称', trigger: 'blur'},
@@ -127,47 +129,48 @@
             {required: true, message: '请输入进球数', trigger: 'blur'},
           ],
         },
-        pageNumber:1,
-        pageSize:5,
-        totalCount:10,
-        loading:false
+        pageNumber: 1,
+        pageSize: 5,
+        totalCount: 10,
+        loading: false
       }
     },
     methods: {
+      /*分页查询*/
       handleSizeChange(pageSize) {
-        this.pageSize=pageSize;
+        this.pageSize = pageSize;
         this.queryData();
       },
       handleCurrentChange(pageNumber) {
-        this.pageNumber =pageNumber;
+        this.pageNumber = pageNumber;
         this.queryData();
       },
       /*查询数据*/
       queryData: function () {
-        this.loading=true;
-        this.$ajax.post('/test/query',{
-            pageSize:this.pageSize,
-            pageNumber:this.pageNumber
+        this.loading = true;
+        this.$ajax.post('/test/query', {
+          pageSize: this.pageSize,
+          pageNumber: this.pageNumber
         }).then(data => {
-          this.loading=false;
-          let resData= data.data.info;
-          let tableData=[];
-          resData.map((item,index)=>{
-              let obj =  {};
-              obj["index"]=(this.pageNumber-1)*this.pageSize+index+1;
-              obj["date"]=item.date;
-              obj["name"]=item.name;
-              obj["country"]=item.country;
-              obj["score"]=item.score;
-              obj["id"]=item.id;
-              tableData.push(obj)
+          this.loading = false;
+          let resData = data.data.info;
+          let tableData = [];
+          resData.map((item, index) => {
+            let obj = {};
+            obj["index"] = (this.pageNumber - 1) * this.pageSize + index + 1;
+            obj["date"] = item.date;
+            obj["name"] = item.name;
+            obj["country"] = item.country;
+            obj["score"] = item.score;
+            obj["id"] = item.id;
+            tableData.push(obj)
           })
           this.tableData = tableData;
-          this.totalCount =data.data.total;
+          this.totalCount = data.data.total;
         })
       },
       /*新增回显*/
-      addView:function () {
+      addView: function () {
         this.dialogVisible = true;
         this.$nextTick(() => {
           this.btnDisplay = 'add';
@@ -179,16 +182,16 @@
       },
       /*新增数据*/
       addData: function () {
-          this.$ajax.post('/test/add', {
-            name: this.ruleForm.name,
-            country: this.ruleForm.country,
-            score: this.ruleForm.score,
-            date: this.getDay(new Date()),
-          }).then(success => {
-            this.dialogVisible = false;
-            this.$message(success.data.message);
-            this.queryData()
-          })
+        this.$ajax.post('/test/add', {
+          name: this.ruleForm.name,
+          country: this.ruleForm.country,
+          score: this.ruleForm.score,
+          date: this.getDay(new Date()),
+        }).then(success => {
+          this.dialogVisible = false;
+          this.$message(success.data.message);
+          this.queryData()
+        })
       },
       /*修改数据回显*/
       updateDataView: function (index, row) {
@@ -210,10 +213,10 @@
           country: this.ruleForm.country,
           score: this.ruleForm.score,
           date: this.ruleForm.date
-        }).then(success=>{
+        }).then(success => {
           this.$message(success.data.message);
           this.queryData();
-          this.dialogVisible=false;
+          this.dialogVisible = false;
         })
       },
       /*删除数据*/
@@ -236,22 +239,6 @@
     },
     mounted: function () {
       this.queryData();
-
-//      var ws = new WebSocket("ws://10.18.160.20:3000");
-//
-//      ws.onopen = function(evt) {
-//        console.log("Connection open ...");
-//        ws.send("Hello WebSockets!");
-//      };
-//
-//      ws.onmessage = function(evt) {
-//        console.log( "Received Message: " + evt.data);
-//        ws.close();
-//      };
-//
-//      ws.onclose = function(evt) {
-//        console.log("Connection closed.");
-//      };
     }
   }
 </script>

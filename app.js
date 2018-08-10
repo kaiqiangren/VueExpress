@@ -1,4 +1,5 @@
 const express = require('express');
+/*用于全局解析post请求*/
 const bodyParser = require('body-parser');
 
 const server = express();

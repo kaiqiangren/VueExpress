@@ -1,19 +1,8 @@
 const express = require("express");
-
-const mysql = require("mysql");
 //定义路由级中间件
 const router = express.Router();
-
-//连接上数据库
-var db = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '123456',
-  database:'test'
-});
-db.connect();
-
-//
+//引入数据库连接池，防止数据库超过最大连接数
+const query=require("./db/db");
 
 /*
  * 增删改查服务路由
@@ -27,7 +16,7 @@ router.use('/test/add', function (req, res) {
     req.body.date,
     req.body.score
   ];
-  db.query(sql,sqlParams,function (err,result) {
+  query(sql,sqlParams,function (err,result) {
     if(err){
       res.json({
         ok:false,
@@ -47,7 +36,7 @@ router.use('/test/add', function (req, res) {
 /*删除*/
 router.use('/test/delete', function (req, res) {
   let delSql = 'DELETE FROM user_info where id='+req.body.id;
-  db.query(delSql, function(err, rows, fields) {
+  query(delSql, function(err, rows, fields) {
     if(err){
       res.json({
         ok:false,
@@ -61,7 +50,7 @@ router.use('/test/delete', function (req, res) {
       })
     }
     res.end();
-  });``
+  })
 });
 /*编辑*/
 router.use('/test/edit', function (req, res) {
@@ -72,7 +61,7 @@ router.use('/test/edit', function (req, res) {
     req.body.date,
     req.body.score
   ];
-  db.query(editSql,editSqlParams,function (err,result) {
+  query(editSql,editSqlParams,function (err,result) {
     if(err){
       res.json({
         ok:false,
@@ -96,11 +85,11 @@ router.use('/test/query', function (req, res) {
   let sql = "SELECT * FROM user_info ORDER BY score DESC LIMIT "+start+","+end;
   let countSql = "SELECT COUNT(id) FROM user_info";
   const promise = new Promise(function(resolve, reject) {
-    db.query(countSql,function (err, rows, fields) {
+    query(countSql,function (err, rows, fields) {
       resolve(rows);
     })
   }).then((count)=>{
-    db.query(sql, function(err, rows, fields) {
+    query(sql, function(err, rows, fields) {
       if(err){
         res.json({
           ok:false,
@@ -114,7 +103,6 @@ router.use('/test/query', function (req, res) {
           info:rows,
           total:count[0]["COUNT(id)"]
         })
-        // db.end();
       }
       res.end();
     });
