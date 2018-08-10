@@ -159,6 +159,7 @@
               obj["name"]=item.name;
               obj["country"]=item.country;
               obj["score"]=item.score;
+              obj["id"]=item.id;
               tableData.push(obj)
           })
           this.tableData = tableData;

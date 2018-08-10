@@ -51,7 +51,8 @@ router.use('/test/delete', function (req, res) {
     if(err){
       res.json({
         ok:false,
-        message:'删除失败！'
+        message:'删除失败！',
+        error:err
       })
     }else{
       res.json({
