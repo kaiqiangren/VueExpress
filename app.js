@@ -8,9 +8,10 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 /*引入测试服务*/
 const test = require('./server/test');
-
+const upload = require('./server/service/upload');
 // 将服务路由挂载至服务器
 server.use('/',test);
+server.use('/',upload);
 
 
 /*对外输出端口号*/
