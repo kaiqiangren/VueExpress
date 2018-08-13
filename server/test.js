@@ -36,7 +36,7 @@ router.use('/test/add', function (req, res) {
 /*删除*/
 router.use('/test/delete', function (req, res) {
   let delSql = 'DELETE FROM user_info where id='+req.body.id;
-  query(delSql, function(err, rows, fields) {
+  query(delSql,null, function(err, rows, fields) {
     if(err){
       res.json({
         ok:false,
@@ -85,7 +85,7 @@ router.use('/test/query', function (req, res) {
   let sql = "SELECT * FROM user_info ORDER BY score DESC LIMIT "+start+","+end;
   let countSql = "SELECT COUNT(id) FROM user_info";
   const promise = new Promise(function(resolve, reject) {
-    query(countSql,function (err, rows, fields) {
+    query(countSql,null,function (err, rows, fields) {
       resolve(rows);
     })
   }).then((count)=>{

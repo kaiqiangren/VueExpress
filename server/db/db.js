@@ -10,12 +10,12 @@ const pool = mysql.createPool({
   database:'test'
 });
 /*封装数据库操作方法query--用于增删改查*/
-const query=function(sql,callback){
+const query=function(sql,sqlParams,callback){
   pool.getConnection(function(err,conn){
     if(err){
       callback(err,null,null);
     }else{
-      conn.query(sql,function(qerr,vals,fields){
+      conn.query(sql,sqlParams,function(qerr,vals,fields){
         //释放连接
         conn.release();
         //事件驱动回调
