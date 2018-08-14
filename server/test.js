@@ -89,7 +89,7 @@ router.use('/test/query', function (req, res) {
       resolve(rows);
     })
   }).then((count)=>{
-    query(sql, function(err, rows, fields) {
+    query(sql,null, function(err, rows, fields) {
       if(err){
         res.json({
           ok:false,
