@@ -1,6 +1,6 @@
 # vueExpress
 
-> \"VueExpress全栈项目\"
+> \"VueExpress全栈项目-- VueExpress full stack\"
 
 ## Build Setup 构建步骤
 

@@ -10,7 +10,7 @@
   <div>
     <el-container>
       <el-header>
-        2018俄罗斯世界杯射手榜
+        2018俄罗斯世界杯射手榜test git
       </el-header>
       <el-main>
         <el-table
