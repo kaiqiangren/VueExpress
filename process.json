@@ -8,7 +8,7 @@
 
     "instances" : 4, //利用4个核心
 
-    "exec_mode" : "cluster", //多集群模式
+    //"exec_mode" : "cluster", //多集群模式
 
     "watch" : false, //文件修改后自动重启服务器
 
