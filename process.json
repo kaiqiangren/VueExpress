@@ -1,0 +1,25 @@
+{
+
+  "apps" : [{
+
+    "name" : "dev",//进程名称
+
+    "script": "./app.js",//需要启动的脚本
+
+    "instances" : 4, //利用4个核心
+
+    "exec_mode" : "cluster", //多集群模式
+
+    "watch" : false, //文件修改后自动重启服务器
+
+    "error_file":"log/nodejs/pm2-err.log",//错误输出日志
+
+    "out_file":"log/nodejs/pm2-out.log",  //日志
+
+    "log_date_format":"YYYY-MM-DD HH:mm Z" //日期格式
+
+//    "exec_interpreter":"babel-node" //支持es6语法 前提安装npm install babel-cli -g
+
+  }]
+
+}
