@@ -2,7 +2,7 @@
  * Created by renka on 2018/8/10.
  */
 const mysql = require("mysql");
-//连接上数据库(连接池)
+//创建数据库(连接池)
 const pool = mysql.createPool({
   host     : 'localhost',
   user     : 'root',

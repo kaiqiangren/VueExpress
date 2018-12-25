@@ -1,7 +1,7 @@
 const express = require("express");
 //定义路由级中间件
 const router = express.Router();
-//引入数据库连接池，防止数据库超过最大连接数
+//引入数据库连接池
 const query=require("./db/db");
 
 /*
