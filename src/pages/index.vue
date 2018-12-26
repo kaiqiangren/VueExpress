@@ -206,6 +206,7 @@
           this.ruleForm.score = row.score;
           this.ruleForm.date = row.date;
         })
+        console.log(this.ruleForm)
       },
       /*确认编辑*/
       updateData: function () {
@@ -214,7 +215,7 @@
           name: this.ruleForm.name,
           country: this.ruleForm.country,
           score: this.ruleForm.score,
-          date: this.ruleForm.date
+          date: this.getDay(new Date(this.ruleForm.date))
         }).then(success => {
           this.$message(success.data.message);
           this.queryData();

@@ -1,9 +1,10 @@
 const express = require('express');
-/*用于全局解析post请求*/
+/*用于解析json格式数据*/
 const bodyParser = require('body-parser');
 
 const server = express();
-server.use(bodyParser.json()); // support json encoded bodies
+
+server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 /*引入测试服务*/
