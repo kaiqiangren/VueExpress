@@ -1,30 +1,25 @@
 # vueExpress
 
-> \"VueExpress全栈项目-- VueExpress full stack\"
+> \"VueExpress-- VueExpress full stack project\"
 
-## Build Setup 构建步骤
+## Build Setup
 
 ``` bash
-# install dependencies  安装依赖
+# install dependencies
 npm install
 
-# serve with hot reload at localhost:8080  运行程序
+# serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification 打包构建
+# build for production with minification
 npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
 
-# run unit tests
-npm run unit
+#service is running at localhost:3000  -- cluster mode
+pm2 start app.js -i max
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+##Please don't use the process.js & process.json to start the app.js
