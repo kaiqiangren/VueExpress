@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.1",
     "express": "^4.16.2",
